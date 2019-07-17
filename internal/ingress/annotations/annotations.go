@@ -20,6 +20,7 @@ import (
 	"github.com/imdario/mergo"
 	"k8s.io/ingress-nginx/internal/ingress/annotations/canary"
 	"k8s.io/ingress-nginx/internal/ingress/annotations/modsecurity"
+	"k8s.io/ingress-nginx/internal/ingress/annotations/proxyssl"
 	"k8s.io/ingress-nginx/internal/ingress/annotations/sslcipher"
 	"k8s.io/klog"
 
@@ -85,6 +86,7 @@ type Ingress struct {
 	ExternalAuth       authreq.Config
 	HTTP2PushPreload   bool
 	Proxy              proxy.Config
+	ProxySSL           proxyssl.Config
 	RateLimit          ratelimit.Config
 	Redirect           redirect.Config
 	Rewrite            rewrite.Config
@@ -129,6 +131,7 @@ func NewAnnotationExtractor(cfg resolver.Resolver) Extractor {
 			"ExternalAuth":         authreq.NewParser(cfg),
 			"HTTP2PushPreload":     http2pushpreload.NewParser(cfg),
 			"Proxy":                proxy.NewParser(cfg),
+			"ProxySSL":             proxyssl.NewParser(cfg),
 			"RateLimit":            ratelimit.NewParser(cfg),
 			"Redirect":             redirect.NewParser(cfg),
 			"Rewrite":              rewrite.NewParser(cfg),
